@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdBrowser", "CmdBrowser.csproj", "{016A6AA1-DC4B-4E56-A725-C666A8624631}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{016A6AA1-DC4B-4E56-A725-C666A8624631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016A6AA1-DC4B-4E56-A725-C666A8624631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016A6AA1-DC4B-4E56-A725-C666A8624631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016A6AA1-DC4B-4E56-A725-C666A8624631}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A00C790-995C-4FA3-90CA-E4E70FFBE2C9}
+	EndGlobalSection
+EndGlobal
