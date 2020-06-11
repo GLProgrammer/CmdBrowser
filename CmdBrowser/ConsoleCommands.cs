@@ -21,7 +21,7 @@ namespace CmdBrowser
         {
             string username = Environment.UserName;
             string computerName = Environment.UserDomainName;
-            if (path == $"C:\\Users\\{Environment.UserName}")
+            if (path == $"C:\\Users\\{Environment.UserName}\\")
                 Console.Write($"{username}@{computerName}-> ~$ ");
             else
                 Console.Write($"{username}@{computerName}-> {path}$ ");
@@ -32,7 +32,7 @@ namespace CmdBrowser
             Console.WriteLine();
             string username = Environment.UserName;
             string computerName = Environment.UserDomainName;
-            if (path == $"C:\\Users\\{Environment.UserName}")
+            if (path == $"C:\\Users\\{Environment.UserName}\\")
                 Console.Write($"{username}@{computerName}-> ~$ ");
             else
                 Console.Write($"{username}@{computerName}-> {path}$ ");
@@ -45,19 +45,19 @@ namespace CmdBrowser
 
             foreach (string directoryName in directories)
             {
-                string directoryNameToWrite = directoryName.Replace(path + '\\', "");
+                string directoryNameToWrite = directoryName.Replace(path, "");
                 if (directoryNameToWrite.StartsWith("."))
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                 else
                     Console.ForegroundColor = ConsoleColor.Blue;
 
-                Console.Write($" {directoryNameToWrite}/");
+                Console.Write($" {directoryNameToWrite}\\");
             }
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             foreach (string fileName in files)
             {
-                string fileNameToWrite = fileName.Replace(path + '\\', "");
+                string fileNameToWrite = fileName.Replace(path, "");
                 Console.Write($" {fileNameToWrite}");
             }
 

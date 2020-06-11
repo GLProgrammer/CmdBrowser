@@ -9,42 +9,61 @@ namespace CmdBrowser
 {
     class Program
     {
-        static string path = $"C:\\Users\\{Environment.UserName}";
+        static string path = $"C:\\Users\\{Environment.UserName}\\";
         static void Main(string[] args)
         {
             Console.Title = "CmdBrowser";
             ConsoleCommands.ClearConsole(path);
             while (true)
             {
-                string[] command = Console.ReadLine().Split(' ');
+                string userInput = Console.ReadLine();
+                string command = userInput.Split(' ')[0];
+                string argsString = userInput.Replace(command + " ", "");
+                List<string> argsList = argsString.Split(' ').ToList();
 
-                switch (command[0])
+                argsList.RemoveAll(x => x == "");
+
+                switch (command)
                 {
                     case "ls":
                         ConsoleCommands.ListDirectories(path);
                         break;
 
                     case "cd":
-                        if(command.Length == 1)
+                        if (argsList.Count == 0)
                         {
-                            path = $"C:\\Users\\{Environment.UserName}";
+                            path = $"C:\\Users\\{Environment.UserName}\\";
                         }
                         else
                         {
-                            if (command[1] == "..")
+                            if (argsList[0] == "..")
                             {
-                                string[] parsedPath = path.Split('\\');
-                                path = path.Replace("\\" + parsedPath[parsedPath.Length - 1], "");
+                                List<string> parsedPath = path.Split('\\').ToList();
+
+                                parsedPath.RemoveAt(parsedPath.Count - 1);
+
+                                if (parsedPath.Count == 1)
+                                {
+                                    ConsoleCommands.WriteHeader(path);
+                                    break;
+                                }
+                                path = "";
+
+                                for (int i = 0; i < parsedPath.Count - 1; i++)
+                                {
+                                    path += parsedPath[i] + "\\";
+                                }
                             }
                             else
                             {
-                                if (Directory.Exists(path + "\\" + command[1]))
-                                    path += $"\\{command[1]}";
+                                string tempPath = path + argsString + "\\";
+                                if (Directory.Exists(tempPath))
+                                    path = tempPath;
                                 else
-                                    Console.WriteLine("Path doesn´t exist!");
+                                    Console.WriteLine("Path doesn´t exist: " + tempPath);
                             }
                         }
-                        
+
 
                         ConsoleCommands.WriteHeader(path);
                         break;
