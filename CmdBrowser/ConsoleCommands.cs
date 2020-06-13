@@ -40,7 +40,16 @@ namespace CmdBrowser
 
         public static void ListDirectories(string path)
         {
-            string[] directories = Directory.GetDirectories(path);
+            string[] directories;
+            try
+            {
+                directories = Directory.GetDirectories(path);
+            } catch(Exception e)
+            {
+                Console.WriteLine("Cannot get directory");
+                WriteHeader(path);
+                return;
+            }
             string[] files = Directory.GetFiles(path);
 
             foreach (string directoryName in directories)

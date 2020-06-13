@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CmdBrowser
@@ -18,9 +20,14 @@ namespace CmdBrowser
             {
                 string userInput = Console.ReadLine();
                 string command = userInput.Split(' ')[0];
-                string argsString = userInput.Replace(command + " ", "");
-                List<string> argsList = argsString.Split(' ').ToList();
+                string argsString;
 
+                if (userInput.Contains(" "))
+                    argsString = userInput.Replace(command + " ", "");
+                else
+                    argsString = userInput.Replace(command, "");
+
+                List<string> argsList = argsString.Split(' ').ToList();
                 argsList.RemoveAll(x => x == "");
 
                 switch (command)
@@ -30,6 +37,7 @@ namespace CmdBrowser
                         break;
 
                     case "cd":
+                        #region CD Logic
                         if (argsList.Count == 0)
                         {
                             path = $"C:\\Users\\{Environment.UserName}\\";
@@ -64,9 +72,40 @@ namespace CmdBrowser
                             }
                         }
 
+                        #endregion
+                        ConsoleCommands.WriteHeader(path);
+                        break;
+
+                    case "open":
+                        if (argsList.Count == 0)
+                        {
+                            Console.WriteLine("Opening directory...");
+                            Process.Start("explorer.exe", path);
+                        }
+                        else
+                        {
+                            if (File.Exists(path + argsString))
+                            {
+                                Console.WriteLine("Opening file...");
+                                Process process = new Process();
+                                process.StartInfo.FileName = path + argsString;
+                                process.StartInfo.RedirectStandardOutput = false;
+                                process.Start();
+                                Thread.Sleep(500);
+                            }
+                            else
+                                Console.WriteLine("File doesn´t exist!");
+                        }
 
                         ConsoleCommands.WriteHeader(path);
                         break;
+
+                    case "clear":
+                        ConsoleCommands.ClearConsole(path);
+                        break;
+
+                    case "stop":
+                            return;
 
                     default:
                         Console.WriteLine("Command not found!");
